@@ -24,7 +24,7 @@ def get_amis():
         Owners=["self"],
         Filters=[
             {"Name": "name", "Values": ["{}*".format(os.environ["CREATE_AMI_NAME"])]}
-        ]
+        ],
     )
     sorted_images = sorted(images["Images"], key=lambda x: x["CreationDate"])
     print("There are {} images".format(len(sorted_images)))
@@ -54,8 +54,8 @@ def deregister(amis):
             print(
                 "!! There are {} AMIs in AWS and I expected {}".format(
                     num_amis, KEEP_NUMBER
-                    )
                 )
+            )
             print("!! Please Investigate!!!")
             sys.exit(1)
 

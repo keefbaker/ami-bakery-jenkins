@@ -11,7 +11,7 @@ jobs:
       env:
         # VALIDATE_ALL_CODEBASE: false
         VALIDATE_ANSIBLE: false
-        VALIDATE_TERRAFORM: false
+        VALIDATE_TERRAGRUNT: false
   test_packer:
     runs-on: ubuntu-latest
     steps:
