@@ -11,6 +11,7 @@ jobs:
       env:
         # VALIDATE_ALL_CODEBASE: false
         VALIDATE_ANSIBLE: false
+        VALIDATE_TERRAFORM: false
   test_packer:
     runs-on: ubuntu-latest
     steps:
@@ -21,4 +22,4 @@ jobs:
         with:
           command: validate
           arguments: -syntax-only
-          target: artifacts.pkr.json packer.json
+          target: packer.pkr.hcl
