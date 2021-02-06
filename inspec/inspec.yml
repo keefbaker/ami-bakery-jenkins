@@ -1,0 +1,4 @@
+---
+name: check the build
+supports:
+  - platform-family: unix

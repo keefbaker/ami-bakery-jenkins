@@ -55,6 +55,10 @@ build {
   provisioner "shell" {
     inline = ["bash ~/_packer_tmp_u.sh", "rm ~/_packer_tmp*"]
   }
+  provisioner "inspec" {
+    inspec_env_vars = [ "CHEF_LICENSE=accept"]
+    profile = "./inspec/"
+  }
   post-processor "manifest" {
     output     = "manifest.json"
     strip_path = true
