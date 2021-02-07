@@ -25,9 +25,9 @@ def replace_ami(packerJSON) {
 pipeline {
    agent { label 'packer' }
    parameters {
-       string(name: 'EC2_PLUGIN_AMI', defaultValue: 'my workers', description: 'Which EC2 Plugin AMI are we updating?')
-       string(name: 'NEW_AMI_NAME', defaultValue: 'centos jenkins worker', description: 'What is the beginning of the name of the ami we are about to build?')
-       string(name: 'ORIGINAL_AMI_NAME', defaultValue: 'centos jenkins worker', description: 'What is the beginning of the name of the ami to build from?')
+       string(name: 'EC2_PLUGIN_AMI', defaultValue: 'linux-workers', description: 'Which EC2 Plugin AMI are we updating?')
+       string(name: 'NEW_AMI_NAME', defaultValue: 'templater', description: 'What is the beginning of the name of the ami we are about to build?')
+       string(name: 'ORIGINAL_AMI_NAME', defaultValue: 'templater', description: 'What is the beginning of the name of the ami to build from?')
    }
    environment {
        AWS_MAX_ATTEMPTS = 450
