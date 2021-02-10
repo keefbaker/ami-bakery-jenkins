@@ -28,7 +28,6 @@ pipeline {
        string(name: 'EC2_PLUGIN_AMI', defaultValue: 'linux-workers', description: 'Which EC2 Plugin AMI are we updating?')
        string(name: 'NEW_AMI_NAME', defaultValue: 'templater', description: 'What is the beginning of the name of the ami we are about to build?')
        string(name: 'ORIGINAL_AMI_NAME', defaultValue: 'templater', description: 'What is the beginning of the name of the ami to build from?')
-       string(name: 'VPC_ID', defaultValue: '', description: 'Which vpc?')
    }
    environment {
        AWS_MAX_ATTEMPTS = 450
@@ -52,7 +51,7 @@ pipeline {
       }
       stage('Packer Build') {
         steps {
-            sh "./packer build -var=\"create_ami_name=${params.AMI_NAME}\" -var=\"original_ami_name=${params.ORIGINAL_AMI_NAME}\" packer.pkr.hcl -var\"vpc_id=${params.VPC_ID}\""
+            sh "./packer build -var=\"create_ami_name=${params.AMI_NAME}\" -var=\"original_ami_name=${params.ORIGINAL_AMI_NAME}\" packer.pkr.hcl"
             stash name: 'packer_output', includes: 'manifest.json'
             }
          }
