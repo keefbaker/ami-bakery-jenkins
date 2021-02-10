@@ -13,7 +13,7 @@ def replace_ami(packerJSON) {
                 println("Set AMI in Jenkins to $new_ami")
                 } else {
                 def failname = it.getDisplayName().toLowerCase()
-                println("No match for $EC2_PLUGIN_AMI on $failname"
+                println("No match for $EC2_PLUGIN_AMI on $failname")
             }
             }
         }
