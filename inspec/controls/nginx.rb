@@ -9,6 +9,5 @@ control "check nginx is installed and running" do
   end
   describe port(80) do
     it { should be_listening }
-    its("processes") { should include "nginx" }
   end
 end
