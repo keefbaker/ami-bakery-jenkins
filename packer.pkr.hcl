@@ -17,6 +17,7 @@ variable "region" {
 locals { 
   timestamp = regex_replace(timestamp(), "[ :]", "") 
   vpc_id = aws_secretsmanager("vpc", "vpc")
+  subnet_id = aws_secretsmanager("vpc", "subnet")
  }
 
 source "amazon-ebs" "ami_build" {
