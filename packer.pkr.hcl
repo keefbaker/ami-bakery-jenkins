@@ -61,6 +61,11 @@ build {
   provisioner "shell" {
     inline = ["bash ~/_packer_tmp_u.sh", "rm ~/_packer_tmp*"]
   }
+  
+  provisioner "file" {
+    source = "inspec"
+    destination = "/home/ec2-user/"
+  }
   provisioner "inspec" {
     inspec_env_vars = [ "CHEF_LICENSE=accept"]
     profile = "./inspec/"
