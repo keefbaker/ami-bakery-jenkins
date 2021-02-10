@@ -44,6 +44,7 @@ pipeline {
             unzip -o packer_1.6.5_linux_amd64.zip
             chmod 755 packer
             sudo pip install boto3
+            sudo curl https://omnitruck.chef.io/install.sh | sudo bash -s -- -P inspec
              """
 
             sh "./packer validate -var=\"create_ami_name=${params.NEW_AMI_NAME}\" -var=\"original_ami_name=${params.ORIGINAL_AMI_NAME}\" packer.pkr.hcl"
