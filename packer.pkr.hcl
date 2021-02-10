@@ -30,7 +30,7 @@ source "amazon-ebs" "ami_build" {
     volume_size = "20"
   }
   region             = var.region
-  security_group_ids = [var.security_group]
+  security_group_ids = [local.security_group]
   source_ami_filter {
     filters = {
       name = "${var.original_ami_name}*"
