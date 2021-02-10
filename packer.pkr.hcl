@@ -38,7 +38,7 @@ source "amazon-ebs" "ami_build" {
     owners      = ["self"]
   }
   ssh_username = "centos"
-  // subnet_id    = "${var.subnet_id}"
+  subnet_id    = "${local.subnet_id}"
   vpc_id       = "${local.vpc_id}"
 }
 
