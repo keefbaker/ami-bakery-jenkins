@@ -24,7 +24,7 @@ locals {
 source "amazon-ebs" "ami_build" {
   ami_name      = "${var.create_ami_name} ${local.timestamp}"
   // ami_users     = ["123123123"]
-  instance_type = "t2.large"
+  instance_type = "c5.xlarge"
   launch_block_device_mappings {
     device_name = "/dev/sda1"
     volume_size = "20"
