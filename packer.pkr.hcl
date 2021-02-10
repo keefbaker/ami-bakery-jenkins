@@ -13,11 +13,12 @@ variable "region" {
 
 
 // The below creates a filename friendly timestamp
-// for a unique AMI 
+// for a unique AMI and pulls vars from aws secrets manager
 locals { 
   timestamp = regex_replace(timestamp(), "[ :]", "") 
   vpc_id = aws_secretsmanager("vpc", "vpc")
   subnet_id = aws_secretsmanager("vpc", "subnet")
+  security_group = aws_secretsmanager("vpc", "secgroup")
  }
 
 source "amazon-ebs" "ami_build" {
@@ -29,7 +30,7 @@ source "amazon-ebs" "ami_build" {
     volume_size = "20"
   }
   region             = var.region
-  // security_group_ids = "${var.security_groups}"
+  security_group_ids = [var.security_group]
   source_ami_filter {
     filters = {
       name = "${var.original_ami_name}*"
