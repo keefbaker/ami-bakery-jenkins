@@ -11,13 +11,13 @@ variable "region" {
   default = "eu-west-1"
 }
 
-variable "vpc_id" {
-  type    = string
-}
 
 // The below creates a filename friendly timestamp
 // for a unique AMI 
-locals { timestamp = regex_replace(timestamp(), "[ :]", "") }
+locals { 
+  timestamp = regex_replace(timestamp(), "[ :]", "") 
+  vpc_id = aws_secretsmanager("vpc", "vpc")
+ }
 
 source "amazon-ebs" "ami_build" {
   ami_name      = "${var.create_ami_name} ${local.timestamp}"
@@ -38,7 +38,7 @@ source "amazon-ebs" "ami_build" {
   }
   ssh_username = "centos"
   // subnet_id    = "${var.subnet_id}"
-  vpc_id       = "${var.vpc_id}"
+  vpc_id       = "${local.vpc_id}"
 }
 
 
