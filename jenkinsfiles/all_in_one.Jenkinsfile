@@ -14,7 +14,8 @@ def replace_ami(packerJSON) {
                 } else {
                 def failname = it.getDisplayName().toLowerCase()
                 println("No match for $EC2_PLUGIN_AMI on $failname")
-            }
+                    }
+                }
             }
         }
     } else {
