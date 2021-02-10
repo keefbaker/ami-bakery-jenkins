@@ -27,7 +27,7 @@ source "amazon-ebs" "ami_build" {
   // security_group_ids = "${var.security_groups}"
   source_ami_filter {
     filters = {
-      name = var.original_ami_name
+      name = "${var.original_ami_name}*"
     }
     most_recent = true
     owners      = ["self"]
