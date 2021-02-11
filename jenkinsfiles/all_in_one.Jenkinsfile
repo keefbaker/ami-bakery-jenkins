@@ -56,7 +56,7 @@ pipeline {
       }
       stage('Packer Build') {
         steps {
-            sh "./packer build -var=\"create_ami_name=${params.AMI_NAME}\" -var=\"original_ami_name=${params.ORIGINAL_AMI_NAME}\" packer.pkr.hcl"
+            sh "./packer build -var=\"create_ami_name=${params.NEW_AMI_NAME}\" -var=\"original_ami_name=${params.ORIGINAL_AMI_NAME}\" packer.pkr.hcl"
             stash name: 'packer_output', includes: 'manifest.json'
             }
          }
@@ -72,7 +72,7 @@ pipeline {
       stage('Cleanup old AMI\'s') {
         steps {
             sh """
-            export CREATE_AMI_NAME=${params.CREATE_AMI_NAME}
+            export CREATE_AMI_NAME=${params.NEW_AMI_NAME}
             python ami_cleanup.py
             """
         }
