@@ -2,7 +2,6 @@ import groovy.json.JsonSlurper
 def replace_ami(packerJSON) {
     // Assuming all is well, replace the old AMI with
     // the new one.
-    println("yes I did run")
     def packerBuild = new JsonSlurper().parseText(packerJSON)
     def new_ami = packerBuild.builds.last().artifact_id.split(':')[1]
     if (new_ami.startsWith("ami-")) {
