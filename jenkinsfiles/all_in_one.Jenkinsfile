@@ -7,7 +7,7 @@ def replace_ami(packerJSON) {
     if (new_ami.startsWith("ami-")) {
         println("iterating through clouds now")
         Jenkins.instance.clouds.each {
-            \\ Put the name you gave your ec2plugin cloud here
+            // Put the name you gave your ec2plugin cloud here
             if (it.displayName == 'fm') {
             it.getTemplates().each {
                 if (it.getDisplayName().toLowerCase().contains("$EC2_PLUGIN_AMI".toLowerCase())) {
