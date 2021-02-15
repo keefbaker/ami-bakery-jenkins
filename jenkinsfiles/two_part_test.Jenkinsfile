@@ -59,7 +59,6 @@ pipeline {
             replace_ami()
             }
           }
-      }
       stage('Cleanup old AMI\'s') {
           // done on a different node so we don't 
           // have to install boto3 on the build node
