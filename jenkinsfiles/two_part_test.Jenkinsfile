@@ -1,4 +1,5 @@
 import groovy.json.JsonSlurper
+
 def replace_ami() {
     // Assuming all is well, replace the old AMI with
     // the new one.
@@ -9,6 +10,7 @@ def replace_ami() {
             it.getTemplates().each {
                 if (it.getDisplayName().toLowerCase().contains("$OLD_PLUGIN".toLowerCase())) {
                 new_ami = it.getAmi()
+                }
             }
         }
     }
