@@ -43,8 +43,7 @@ pipeline {
       stage('Setup Packer and build files') {
          steps {
             sh """
-            export 
-            sudo yum install -y wget python-pip tree
+            sudo yum install -y python-pip
             curl https://releases.hashicorp.com/packer/1.6.5/packer_1.6.5_linux_amd64.zip -o packer_1.6.5_linux_amd64.zip
             unzip -o packer_1.6.5_linux_amd64.zip
             chmod 755 packer

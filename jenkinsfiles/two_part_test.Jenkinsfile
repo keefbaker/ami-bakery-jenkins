@@ -36,33 +36,38 @@ def replace_ami() {
     Jenkins.instance.save()
 }
 pipeline {
-   agent { label 'fakenode' }
+    agent none
    parameters {
        string(name: 'EC2_PLUGIN_AMI', defaultValue: 'linux-workers', description: 'Which EC2 Plugin AMI are we updating?')
        string(name: 'OLD_PLUGIN', defaultValue: 'intermediary', description: 'Which contains the correct AMI?')
+       string(name: 'AMI_NAME', defaultValue: '', description: 'For cleanup')
+
    }
    environment {
        AWS_MAX_ATTEMPTS = 450
        AWS_DEFAULT_REGION = 'eu-west-1'
    }
    stages {
-      stage('Build Test') {
+      stage('Build Test and replace AMI') {
+          agent { label 'fakenode' }
           steps {
             sh '''
             echo "I would run lots of tests here"
             '''
+            replace_ami()
             }
           }
       }
-      stage('replace AMI') {
-          steps {
-              replace_ami()
-          }
-      }
       stage('Cleanup old AMI\'s') {
+          // done on a different node so we don't 
+          // have to install boto3 on the build node
+          // 
+          agent { label 'packer' }
         steps {
             sh """
-            export CREATE_AMI_NAME=${params.NEW_AMI_NAME}
+            sudo yum install -y python-pip
+            sudo pip install boto3
+            export CREATE_AMI_NAME=${params.AMI_NAME}
             python ami_cleanup.py
             """
         }

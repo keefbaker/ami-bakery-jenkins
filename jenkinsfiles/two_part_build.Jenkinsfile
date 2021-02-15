@@ -48,12 +48,9 @@ pipeline {
       stage('Setup Packer and build files') {
          steps {
             sh """
-            export 
-            sudo yum install -y wget python-pip tree
             curl https://releases.hashicorp.com/packer/1.6.5/packer_1.6.5_linux_amd64.zip -o packer_1.6.5_linux_amd64.zip
             unzip -o packer_1.6.5_linux_amd64.zip
             chmod 755 packer
-            sudo pip install boto3
             sudo curl https://omnitruck.chef.io/install.sh | sudo bash -s -- -P inspec
              """
 
@@ -77,7 +74,11 @@ pipeline {
       }
       stage ('Starting downstream job ') {
           steps {
-            build job: 'two_part_test', parameters: [], propagate: false
+            build job: 'two_part_test', parameters: [
+                string(name: 'AMI_NAME', value: "${params.NEW_AMI_NAME}"),
+                string(name: 'OLD_PLUGIN', value: 'intermediary),
+                string(name: 'EC2_PLUGIN_AMI', value: 'linux-workers')
+                ]
           }
       }
     }
