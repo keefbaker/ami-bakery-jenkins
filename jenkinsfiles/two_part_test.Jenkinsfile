@@ -1,3 +1,7 @@
+// This can be used to run a test build/etc on the finished AMI
+// using an intermediary AMI config.
+// If this works, it then updates the main linux-workers group
+
 import groovy.json.JsonSlurper
 
 def replace_ami() {
