@@ -76,7 +76,7 @@ pipeline {
           steps {
             build job: 'two_part_test', parameters: [
                 string(name: 'AMI_NAME', value: "${params.NEW_AMI_NAME}"),
-                string(name: 'OLD_PLUGIN', value: 'intermediary),
+                string(name: 'OLD_PLUGIN', value: 'intermediary'),
                 string(name: 'EC2_PLUGIN_AMI', value: 'linux-workers')
                 ]
           }
