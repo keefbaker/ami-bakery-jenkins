@@ -77,7 +77,7 @@ pipeline {
       }
       stage ('Starting downstream job ') {
           steps {
-            build job: 'ami_test_job', parameters: [], propagate: false
+            build job: 'two_part_test', parameters: [], propagate: false
           }
       }
     }
