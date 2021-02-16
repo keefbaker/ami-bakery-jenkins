@@ -80,10 +80,10 @@ pipeline {
             """
         }
       }
-      post {
-          failure {
-              sh "aws ec2 deregister-image --image-id \${AMI}"
-          }
-      }
    }
+    post {
+        failure {
+            sh "aws ec2 deregister-image --image-id \${AMI}"
+        }
+    }
 }
