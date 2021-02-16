@@ -71,7 +71,7 @@ pipeline {
           // have to install boto3 on the build node
           // 
           agent { label 'packer' }
-        steps {
+          steps {
             sh """
             sudo yum install -y python-pip
             sudo pip install boto3
@@ -83,6 +83,7 @@ pipeline {
    }
     post {
         failure {
+            agent { label 'packer' }
             sh "aws ec2 deregister-image --image-id \${AMI}"
         }
     }
