@@ -14,7 +14,7 @@ variable "region" {
 
 // The below creates a filename friendly timestamp
 // for a unique AMI and pulls vars from aws secrets manager
-locals { 
+locals {
   timestamp = regex_replace(timestamp(), "[ :]", "") 
   vpc_id = aws_secretsmanager("vpc", "vpc")
   subnet_id = aws_secretsmanager("vpc", "subnet")

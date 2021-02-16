@@ -4,9 +4,7 @@
 
 import groovy.json.JsonSlurper
 
-def replace_ami() {
-    // Assuming all is well, replace the old AMI with
-    // the new one.
+def get_ami() {
     def new_ami = 'nothing'
     Jenkins.instance.clouds.each {
         // Put the name you gave your ec2plugin cloud here
@@ -18,6 +16,13 @@ def replace_ami() {
             }
         }
     }
+    new_ami
+}
+
+def replace_ami() {
+    // Assuming all is well, replace the old AMI with
+    // the new one.
+    def new_ami = get_ami()
     if (new_ami.startsWith("ami-")) {
         println("iterating through clouds now")
         Jenkins.instance.clouds.each {
@@ -49,6 +54,7 @@ pipeline {
    environment {
        AWS_MAX_ATTEMPTS = 450
        AWS_DEFAULT_REGION = 'eu-west-1'
+       AMI = get_ami()
    }
    stages {
       stage('Build Test and replace AMI') {
@@ -73,6 +79,11 @@ pipeline {
             python ami_cleanup.py
             """
         }
+      }
+      post {
+          failure {
+              sh "aws ec2 deregister-image --image-id \${AMI}"
+          }
       }
    }
 }
